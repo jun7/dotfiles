@@ -1,0 +1,197 @@
+#a new
+
+gtk_color_scheme = "text_color:#111"
+gtk_color_scheme = "base_color:#fff"
+
+gtk_color_scheme = "fg_color:#022"
+gtk_color_scheme = "bg_color:#eee"
+
+gtk_color_scheme = "selected_fg_color:#fff"
+gtk_color_scheme = "selected_bg_color:#e17"
+
+gtk_color_scheme = "tooltip_fg_color:#fff"
+gtk_color_scheme = "tooltip_bg_color:#000"
+
+gtk_color_scheme = "menubar_fg_color:#000"
+gtk_color_scheme = "menubar_bg_color:#ccc"
+
+gtk-icon-sizes = "gtk-button=16,16"
+
+style "default"{
+	fg[NORMAL] = @fg_color
+	bg[NORMAL] = @bg_color
+	text[NORMAL] = @text_color
+	base[NORMAL] = @base_color
+
+	fg[PRELIGHT] = @fg_color
+	bg[PRELIGHT] = mix(.7, @bg_color, @selected_bg_color)
+	text[PRELIGHT] = @text_color
+	base[PRELIGHT] = mix(.7, @base_color, @selected_bg_color)
+
+	fg[SELECTED] = @selected_fg_color
+	bg[SELECTED] = @selected_bg_color
+	text[SELECTED] = @selected_fg_color
+	base[SELECTED] = @selected_bg_color
+
+	fg[ACTIVE] = @fg_color
+	bg[ACTIVE] = mix(.8, @bg_color, @fg_color)
+	text[ACTIVE] = @selected_fg_color
+	base[ACTIVE] = mix(.4, @fg_color, @selected_bg_color)
+
+	fg[INSENSITIVE] = mix(.5, @fg_color, @bg_color)
+	bg[INSENSITIVE] = @bg_color
+	text[INSENSITIVE] = mix(.5, @text_color, @base_color)
+	base[INSENSITIVE] = @bg_color
+
+	xthickness = 1
+	ythickness = 1
+
+	#needs patche
+	GtkMenuBar::window-dragging = 1
+	#this doesn't work now but
+	GtkWidget::window-dragging = 1
+	GtkToolbar::window-dragging	= 1
+
+	GtkScrollbar::has-backward-stepper = 0  
+	GtkScrollbar::has-forward-stepper = 0
+	GtkScrollbar::trough-border = 0
+	GtkScrollbar::slider_width = 14
+
+	GtkScrolledWindow::scrollbar-spacing = 0
+
+	GtkWidget::focus-line-width = 1
+	GtkWidget::interior-focus = 1
+	GtkWidget::inner-border = 0
+	GtkWidget::focus-padding = 0
+
+	GtkNotebook::tab-curvature = 4
+
+	#https://wiki.ubuntu.com/Artwork/Documentation/Murrine
+	engine "murrine"{
+		animation = TRUE
+		colorize_scrollbar = TRUE
+		scrollbarstyle = 5
+		roundness = 0
+		stepperstyle = 1
+		#like gtk3
+		menustyle = 3 #3. 0 is normal
+		gradient_shades = {1.0,1.0,1.0,1.0}
+		menuitemstyle = 0
+		border_shades = {1.5, 1.5}
+		glazestyle = 0
+		lightborder_shade = 1.0
+		prelight_shade =0.8
+		highlight_shade = 1.1 
+		glow_shade = 1.4 
+	}
+}
+
+class "GtkWidget" style "default"
+
+#for border of input boxes
+style "entry"{
+	xthickness = 2
+	ythickness = 2
+	#lile gtk3
+	engine "murrine"{
+		border_shades = {1.1, 1.1}
+	}
+}
+class "GtkEntry" style "entry"
+#like gtk3
+class "GtkButton" style "entry"
+class "GtkScale" style "entry"
+
+style "zerot"{
+	ythickness = 0
+	xthickness = 0
+}
+class "GtkToolbar" style "zerot"
+widget_class "*.GtkToolbar.*.GtkButton" style "zerot"
+
+#for contrast
+style "menu"{
+	bg[NORMAL] = @base_color
+
+	#like gtk3
+	GtkMenu::vertical-padding = 0
+	xthickness = 0
+	ythickness = 0
+}
+class "GtkMenu" style "menu"
+
+style "menu_item"{
+	bg[PRELIGHT] = @selected_bg_color
+	fg[PRELIGHT] = @selected_fg_color
+	
+	#like gtk3
+	GtkMenuItem::arrow-scaling = 0.4
+	GtkMenuItem::selected-shadow-type = GTK_SHADOW_NONE
+	ythickness = 3
+	engine "murrine"{
+		border_colors = {@selected_bg_color, @selected_bg_color} 
+		#arrowstyle = 0 #like gtk3
+	}
+}
+widget_class "*<GtkMenuItem>*" style "menu_item"
+
+#for link to the color of the titlebar
+style "colored_menubar"{
+	bg[NORMAL] = @menubar_bg_color
+
+	#like gtk3
+	GtkMenuBar::internal-padding = 0
+	ythickness = 0
+	xthickness = 0
+}
+style "colored_item"{
+	fg[NORMAL] = @menubar_fg_color
+	fg[INSENSITIVE] = mix(.5, @menubar_fg_color, @menubar_bg_color)
+}
+class "GtkMenuBar" style "colored_menubar"
+widget_class "*.GtkMenuBar.<GtkMenuItem>.*" style "colored_item"
+
+#etc
+style "scrollbar"{
+	bg[SELECTED] = mix(.7, @bg_color, @fg_color)
+	engine "murrine"{
+		border_shades = {1.1, 1.9}
+		trough_border_shades = { 1.9, 1.9 }
+	}
+}
+class "GtkScrollbar" style "scrollbar"
+
+#4 vim
+style "vim" {GtkScrollbar::slider_width = 16} #if 16, can move at right edge of display
+widget "vim-main-window*" style "vim"
+
+
+#style "rox"
+#{
+#  base[NORMAL] = "#000000"
+#  text[NORMAL] = "#ffffff"
+#}
+#widget "rox-filer*Collection" style "rox"
+
+pixmap_path "/usr/share/icons/nuvola/48x48/actions"
+
+style "normal" {
+#  stock["gtk-close"] = {{"close-icon.png"}}
+#  stock["gtk-go-up"] = {{"up-icon.png"}}
+#  stock["gtk-home"] = {{"home-icon.png"}}
+#  stock["gtk-refresh"] = {{"refresh-icon.png"}}
+#  stock["gtk-zoom-in"] = {{"zoom-in-icon.png"}}
+#  stock["gtk-zoom-fit"] = {{"zoom-fit-icon.png"}}
+#  stock["gtk-jump-to"] = {{"jump-to-icon.png"}}
+#  stock["gtk-sort-ascending"] = {{"sort-icon.png"}}
+#  stock["gtk-help"] = {{"help-icon.png"}}
+#  stock["rox-show-hidden"] = {{"hidden-icon.png"}}
+  stock["rox-show-details"] = {{"view-list-details.png"}}
+#  stock["rox-select"] = {{"gtk-select-all.png"}}
+}
+ 
+widget "*" style "normal"
+
+
+
+
