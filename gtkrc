@@ -166,12 +166,12 @@ style "vim" {GtkScrollbar::slider_width = 16} #if 16, can move at right edge of 
 widget "vim-main-window*" style "vim"
 
 
-#style "rox"
-#{
-#  base[NORMAL] = "#000000"
-#  text[NORMAL] = "#ffffff"
-#}
-#widget "rox-filer*Collection" style "rox"
+style "rox"
+{
+  base[NORMAL] = "#000000"
+  text[NORMAL] = "#ffffff"
+}
+widget "rox-filer*Collection" style "rox"
 
 pixmap_path "/usr/share/icons/nuvola/48x48/actions"
 
